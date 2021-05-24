@@ -25,7 +25,7 @@
           title: 'Snooze Notifications: 30 Minutes'
         - action: MOTION_ON_THE_DECK_SNOOZE_1_HOUR
           title: 'Snooze Notifications: 1 Hour'
-    service: notify.mobile_app_brians_iphone
+    service: notify.mobile_app_broyuken_iphone
   - wait_for_trigger:
     - platform: event
       event_type: mobile_app_notification_action
