@@ -1,0 +1,47 @@
+- id: '1566690500568'
+  alias: '📱 Notification: Motion on the deck'
+  trigger:
+  - entity_id: binary_sensor.deck_sensor_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.house_mode
+      state: Day
+    - condition: state
+      entity_id: input_select.house_mode
+      state: Evening
+  action:
+  - data:
+      message: There is motion at the deck door
+      data:
+        push:
+          thread-id: deck-notify
+        actions:
+        - action: MOTION_ON_THE_DECK_SNOOZE_30_MIN
+          title: 'Snooze Notifications: 30 Minutes'
+        - action: MOTION_ON_THE_DECK_SNOOZE_1_HOUR
+          title: 'Snooze Notifications: 1 Hour'
+    service: notify.mobile_app_brians_iphone
+  - wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: MOTION_ON_THE_DECK_SNOOZE_30_MIN
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: MOTION_ON_THE_DECK_SNOOZE_1_HOUR
+    continue_on_timeout: false
+    timeout: '1:00'
+  - service: script.1621437264318
+    data:
+      snooze_time_mins: '{% if wait.trigger.event.data.actionName == MOTION_ON_THE_DECK_SNOOZE_30_MIN
+        %} 30 {% elif wait.trigger.event.data.actionName == MOTION_ON_THE_DECK_SNOOZE_1_HOUR
+        %} 60 {% endif %}'
+      automation_name: automation.motion_on_the_deck
+  mode: restart
+  max: 10
