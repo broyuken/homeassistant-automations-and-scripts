@@ -1173,7 +1173,7 @@ actions:
                 sequence:
                   - service: telegram_bot.send_photo
                     data:
-                      target: telegram_chat_id
+                      target: "{{telegram_chat_id}}"
                       url: "{{ doorbell_image_url if ( !input doorbell_media ) != 'none' else none }}"
                       caption: "{{ (!input doorbell_title) ~ ' — ' ~ (!input doorbell_message) }}"
 
@@ -2073,3 +2073,4 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
