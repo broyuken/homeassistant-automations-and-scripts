@@ -1078,7 +1078,7 @@ variables:
       {{ doorbell_snapshot_url }}
     {% elif doorbell_media == 'gif' %}
       {{ doorbell_gif_url }}
-    {% elif ( doorbell_media == 'clip' %}
+    {% elif doorbell_media == 'clip' %}
       {{ doorbell_clip_url }}
     {% else %}
       {{ '' }}
@@ -2074,5 +2074,6 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
 
 
