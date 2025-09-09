@@ -1152,12 +1152,12 @@ actions:
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ (!input notify_device) != [] }}"
+                    value_template: "{{ notify_device != [] }}"
                 sequence:
                   # NOTE: some HA setups expect the notify service to be named `notify.mobile_app_<device_name>`
                   # If the templated service below fails, replace it with your mobile notify service (e.g. notify.mobile_app_brians_iphone).
                   - service: >
-                      {% set dev = device_attr(!input notify_device, 'name') | replace(' ', '_') | lower %}
+                      {% set dev = device_attr(notify_device, 'name') | replace(' ', '_') | lower %}
                       notify.mobile_app_{{ dev }}
                     data:
                       title: "{{ doorbell_title }}"
@@ -2077,6 +2077,7 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
 
 
 
