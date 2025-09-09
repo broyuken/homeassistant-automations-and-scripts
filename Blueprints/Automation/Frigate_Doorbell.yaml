@@ -1073,11 +1073,11 @@ variables:
   doorbell_clip_url: "{{ (base_url ~ '/api/frigate/notifications/' ~ _doorbell_id ~ '/clip.mp4') if (base_url is defined and base_url != '') else '' }}"
   # final chosen media url (resolve depending on doorbell_media)
   doorbell_image_url: >-
-    {% if ( !input doorbell_media ) == 'snapshot' %}
+    {% if doorbell_media == 'snapshot' %}
       {{ doorbell_snapshot_url }}
-    {% elif ( !input doorbell_media ) == 'gif' %}
+    {% elif doorbell_media == 'gif' %}
       {{ doorbell_gif_url }}
-    {% elif ( !input doorbell_media ) == 'clip' %}
+    {% elif ( doorbell_media == 'clip' %}
       {{ doorbell_clip_url }}
     {% else %}
       {{ '' }}
@@ -1119,7 +1119,7 @@ actions:
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ ( !input doorbell_media ) == 'snapshot' }}"
+                    value_template: "{{ doorbell_media == 'snapshot' }}"
                 sequence:
                   - service: camera.snapshot
                     target:
@@ -1138,7 +1138,7 @@ actions:
                       title: !input doorbell_title
                       message: !input doorbell_message
                       data:
-                        image: "{{ doorbell_image_url if ( !input doorbell_media ) != 'none' else none }}"
+                        image: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
                         actions:
                           - action: URI
                             title: Live View
@@ -1159,7 +1159,7 @@ actions:
                       title: !input doorbell_title
                       message: !input doorbell_message
                       data:
-                        image: "{{ doorbell_image_url if ( !input doorbell_media ) != 'none' else none }}"
+                        image: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
                         actions:
                           - action: URI
                             title: Live View
@@ -1174,7 +1174,7 @@ actions:
                   - service: telegram_bot.send_photo
                     data:
                       target: "{{telegram_chat_id}}"
-                      url: "{{ doorbell_image_url if ( !input doorbell_media ) != 'none' else none }}"
+                      url: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
                       caption: "{{ (!input doorbell_title) ~ ' — ' ~ (!input doorbell_message) }}"
 
           # finished — stop so Frigate logic doesn't run for doorbell
@@ -2073,3 +2073,4 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
