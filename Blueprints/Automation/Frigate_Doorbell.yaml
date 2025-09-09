@@ -79,51 +79,58 @@ blueprint:
       description: Used to support multiple instances of Frigate. Leave blank if you don't know what to do.
       default: ""
   # ── Doorbell (optional) ───────────────────────────────────────────────────────
-    doorbell_sensor:
-      name: Doorbell press sensor (optional)
-      description: Binary sensor that goes "on" when the doorbell is pressed.
-      default: []
-      selector:
-        entity:
-          domain: binary_sensor
-    
-    doorbell_title:
-      name: Doorbell title
-      default: "Doorbell"
-      selector:
-        text: {}
-    
-    doorbell_message:
-      name: Doorbell message
-      default: "Someone pressed the doorbell."
-      selector:
-        text: {}
-    
-    doorbell_media:
-      name: Doorbell notification media
-      description: What media to attach when the doorbell is pressed.
-      selector:
-        select:
-          options:
-            - label: Snapshot
-              value: snapshot
-            - label: Animated GIF
-              value: gif
-            - label: Review Clip
-              value: clip
-            - label: None
-              value: none
-      default: snapshot
-    
-    doorbell_cooldown:
-      name: Doorbell cooldown (seconds)
-      description: Minimum seconds to wait before sending the doorbell notification (simple delay).
-      selector:
-        number:
-          min: 0
-          max: 600
-          mode: box
-      default: 0
+    doorbell:
+      name: |
+        # Doorbell Configuration
+      description: These are Doorbell specific Options.
+      icon: mdi:doorbell-video
+      collapsed: true
+      input:
+        doorbell_sensor:
+          name: Doorbell press sensor (optional)
+          description: Binary sensor that goes "on" when the doorbell is pressed.
+          default: []
+          selector:
+            entity:
+              domain: binary_sensor
+        
+        doorbell_title:
+          name: Doorbell title
+          default: "Doorbell"
+          selector:
+            text: {}
+        
+        doorbell_message:
+          name: Doorbell message
+          default: "Someone pressed the doorbell."
+          selector:
+            text: {}
+        
+        doorbell_media:
+          name: Doorbell notification media
+          description: What media to attach when the doorbell is pressed.
+          selector:
+            select:
+              options:
+                - label: Snapshot
+                  value: snapshot
+                - label: Animated GIF
+                  value: gif
+                - label: Review Clip
+                  value: clip
+                - label: None
+                  value: none
+          default: snapshot
+        
+        doorbell_cooldown:
+          name: Doorbell cooldown (seconds)
+          description: Minimum seconds to wait before sending the doorbell notification (simple delay).
+          selector:
+            number:
+              min: 0
+              max: 600
+              mode: box
+          default: 0
 
 #  # ── Doorbell (optional) ───────────────────────────────────────────────────────
 #    doorbell:
@@ -1216,11 +1223,11 @@ actions:
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ telegram_chat_id != '' }}"
+                    value_template: "{{ (!input telegram_chat_id) != '' }}"
                 sequence:
                   - service: telegram_bot.send_photo
                     data:
-                      target: telegram_chat_id
+                      target: !input telegram_chat_id
                       url: "{{ doorbell_image_url if ( !input doorbell_media ) != 'none' else none }}"
                       caption: "{{ (!input doorbell_title) ~ ' — ' ~ (!input doorbell_message) }}"
 
@@ -2120,4 +2127,3 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
-
