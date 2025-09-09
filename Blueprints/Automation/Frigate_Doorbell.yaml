@@ -1072,6 +1072,7 @@ variables:
   doorbell_gif_url: "{{ (base_url ~ '/api/frigate/notifications/' ~ _doorbell_id ~ '/preview.gif') if (base_url is defined and base_url != '') else '' }}"
   doorbell_clip_url: "{{ (base_url ~ '/api/frigate/notifications/' ~ _doorbell_id ~ '/clip.mp4') if (base_url is defined and base_url != '') else '' }}"
   # final chosen media url (resolve depending on doorbell_media)
+  doorbell_media: !input doorbell_media
   doorbell_image_url: >-
     {% if doorbell_media == 'snapshot' %}
       {{ doorbell_snapshot_url }}
@@ -2073,4 +2074,5 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
 
