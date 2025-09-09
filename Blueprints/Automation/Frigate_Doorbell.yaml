@@ -1083,6 +1083,9 @@ variables:
     {% else %}
       {{ '' }}
     {% endif %}
+  doorbell_cooldown: !input doorbell_cooldown
+  doorbell_title: !input doorbell_title
+  doorbell_message: !input doorbell_message
 
 conditions:
   condition: or
@@ -1114,7 +1117,7 @@ actions:
         sequence:
           # simple cooldown delay (this will delay sending by this many seconds)
           - delay:
-              seconds: !input doorbell_cooldown
+              seconds: "{{ doorbell_cooldown }}"
 
           # If snapshot chosen, take a fresh snapshot from selected camera and save to /config/www/tmp/
           - choose:
@@ -1124,7 +1127,7 @@ actions:
                 sequence:
                   - service: camera.snapshot
                     target:
-                      entity_id: !input camera
+                      entity_id: "{{ camera }}"
                     data:
                       filename: "{{ doorbell_snapshot_file }}"
 
@@ -1136,8 +1139,8 @@ actions:
                 sequence:
                   - service: "notify.{{ !input notify_group }}"
                     data:
-                      title: !input doorbell_title
-                      message: !input doorbell_message
+                      title: "{{ doorbell_title }}"
+                      message: "{{ doorbell_message }}"
                       data:
                         image: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
                         actions:
@@ -1157,8 +1160,8 @@ actions:
                       {% set dev = device_attr(!input notify_device, 'name') | replace(' ', '_') | lower %}
                       notify.mobile_app_{{ dev }}
                     data:
-                      title: !input doorbell_title
-                      message: !input doorbell_message
+                      title: "{{ doorbell_title }}"
+                      message: "{{ doorbell_message }}"
                       data:
                         image: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
                         actions:
@@ -1176,7 +1179,7 @@ actions:
                     data:
                       target: "{{telegram_chat_id}}"
                       url: "{{ doorbell_image_url if doorbell_media != 'none' else none }}"
-                      caption: "{{ (!input doorbell_title) ~ ' — ' ~ (!input doorbell_message) }}"
+                      caption: "{{ doorbell_title ~ ' — ' ~ doorbell_message }}"
 
           # finished — stop so Frigate logic doesn't run for doorbell
           - stop: "Handled doorbell"
@@ -2074,6 +2077,7 @@ actions:
                                     target:
                                       entity_id: "{{tts_helper}}"
               until: "{{ not wait.trigger or wait.trigger.payload_json['type'] == 'end' }}"
+
 
 
 
