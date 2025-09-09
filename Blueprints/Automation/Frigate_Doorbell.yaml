@@ -86,19 +86,19 @@ blueprint:
       selector:
         entity:
           domain: binary_sensor
-  
+    
     doorbell_title:
       name: Doorbell title
       default: "Doorbell"
       selector:
         text: {}
-  
+    
     doorbell_message:
       name: Doorbell message
       default: "Someone pressed the doorbell."
       selector:
         text: {}
-  
+    
     doorbell_media:
       name: Doorbell notification media
       description: What media to attach when the doorbell is pressed.
@@ -114,7 +114,7 @@ blueprint:
             - label: None
               value: none
       default: snapshot
-  
+    
     doorbell_cooldown:
       name: Doorbell cooldown (seconds)
       description: Minimum seconds to wait before sending the doorbell notification (simple delay).
