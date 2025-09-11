@@ -991,6 +991,7 @@ variables:
   type: "{{trigger.payload_json['type'] if trigger.id == 'frigate-event'}}"
   input_base_url: !input base_url
   base_url: "{{ input_base_url.rstrip('/')}}"
+  doorbell_sensor: !input doorbell_sensor
   input_telegram_base_url: !input telegram_base_url
   telegram_base_url: "{{ input_telegram_base_url.rstrip('/') if input_telegram_base_url else base_url }}"
   update_sub_label: !input update_sub_label
