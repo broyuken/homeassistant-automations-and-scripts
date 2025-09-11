@@ -991,8 +991,6 @@ variables:
   type: "{{trigger.payload_json['type'] if trigger.id == 'frigate-event'}}"
   input_base_url: !input base_url
   base_url: "{{ input_base_url.rstrip('/')}}"
-  doorbell_sensor: !input doorbell_sensor
-  doorbell_camera: !input doorbell_camera
   input_telegram_base_url: !input telegram_base_url
   telegram_base_url: "{{ input_telegram_base_url.rstrip('/') if input_telegram_base_url else base_url }}"
   update_sub_label: !input update_sub_label
@@ -1160,6 +1158,8 @@ actions:
               title: !input title
               message: !input message
               subtitle: !input subtitle
+              doorbell_sensor: !input doorbell_sensor
+              doorbell_camera: !input doorbell_camera
               tap_action: !input tap_action
               button_1: !input button_1
               button_2: !input button_2
@@ -1875,6 +1875,8 @@ actions:
                     title: !input title
                     message: !input message
                     subtitle: !input subtitle
+                    doorbell_sensor: !input doorbell_sensor
+                    doorbell_camera: !input doorbell_camera
 
                     critical_input: !input critical
                     critical: "{{ true if critical_input == 'true' else true if critical_input == True else false }}"
