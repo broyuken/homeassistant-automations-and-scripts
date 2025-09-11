@@ -1301,7 +1301,7 @@ actions:
                                 value_template: "{{value_json['type']}}"
                                 id: frigate-event-end
                               - trigger: state
-                                entity_id: "{{doorbell_sensor}}"
+                                entity_id: "!input doorbell_sensor"
                                 from: "off"
                                 to: "on"
                                 id: doorbell-ding
