@@ -965,6 +965,7 @@ mode: parallel
 trigger_variables:
   # severity: !input review_severity
   mqtt_topic: !input mqtt_topic
+  doorbell_sensor: !input doorbell_sensor
 triggers:
   - trigger: mqtt
     topic: "{{mqtt_topic}}"
