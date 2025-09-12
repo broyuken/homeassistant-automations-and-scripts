@@ -38,5 +38,5 @@ actions:
     metadata: {}
     data:
       message: >-
-	    "Global Variable: {{global_variable}}"
-		"Nested Variable: {{nested_variable}}"
+        "Global Variable: {{global_variable}}"
+        "Nested Variable: {{nested_variable}}"
