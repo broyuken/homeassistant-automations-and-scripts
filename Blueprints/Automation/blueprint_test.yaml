@@ -1,0 +1,42 @@
+blueprint:
+  name: Blueprint Test
+  author: broyuken
+  description: |
+    ## Blueprint Test
+
+  domain: automation
+  source_url: https://raw.githubusercontent.com/broyuken/homeassistant-automations-and-scripts/refs/heads/main/Blueprints/Automation/blueprint_test.yaml
+  input:
+    global_variable:
+      name: Global Variable
+      description: Global Variable
+      default: [binary_sensor.office_entryway_door_sensor]
+      selector:
+        entity:
+          domain: binary_sensor
+
+    nested:
+      name: |
+        # Nested Variables
+      description: Nested Configuration
+      icon: mdi:doorbell-video
+      collapsed: true
+      input:
+        nested_variable:
+          name: Nested Variable
+          description: Nested Variable
+          default: [binary_sensor.office_entryway_door_sensor]
+          selector:
+            entity:
+              domain: binary_sensor
+variables:
+  global_variable: !input global_variable
+  nested_variable: !input nested_variable
+
+actions:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      message: >-
+	    "Global Variable: {{global_variable}}"
+		"Nested Variable: {{nested_variable}}"
