@@ -1159,8 +1159,6 @@ actions:
               title: !input title
               message: !input message
               subtitle: !input subtitle
-              doorbell_sensor: !input doorbell_sensor
-              doorbell_camera: !input doorbell_camera
               tap_action: !input tap_action
               button_1: !input button_1
               button_2: !input button_2
@@ -1302,7 +1300,7 @@ actions:
                                 value_template: "{{value_json['type']}}"
                                 id: frigate-event-end
                               - trigger: state
-                                entity_id: "!input doorbell_sensor"
+                                entity_id: "{{doorbell_sensor}}"
                                 from: "off"
                                 to: "on"
                                 id: doorbell-ding
