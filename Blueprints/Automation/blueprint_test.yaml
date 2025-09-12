@@ -29,6 +29,8 @@ blueprint:
           selector:
             entity:
               domain: binary_sensor
+trigger_variables:
+  global_variable: !input global_variable
 variables:
   global_variable: !input global_variable
   nested_variable: !input nested_variable
