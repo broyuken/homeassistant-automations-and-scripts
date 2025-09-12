@@ -36,8 +36,8 @@ variables:
   nested_variable: !input nested_variable
 
 triggers:
-  - trigger: state
-    entity_id: "{{ global_variable }}"
+#  - trigger: state
+#    entity_id: "{{ global_variable }}"
   - trigger: state
     entity_id: input_boolean.trigger_1
 
