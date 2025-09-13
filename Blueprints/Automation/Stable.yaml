@@ -1299,10 +1299,8 @@ actions:
                                 payload: end
                                 value_template: "{{value_json['type']}}"
                                 id: frigate-event-end
-                              - trigger: state
-                                entity_id: "{{doorbell_sensor}}"
-                                from: "off"
-                                to: "on"
+                              - trigger: template
+                                value_template: '{{ is_state(doorbell_sensor, ''on'') }}'
                                 id: doorbell-ding
                             continue_on_timeout: false
                           - if:
