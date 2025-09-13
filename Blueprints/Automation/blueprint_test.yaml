@@ -40,7 +40,7 @@ triggers:
   - trigger: state
     entity_id: input_boolean.trigger_1
   - trigger: template
-    value_template: "{{ is_state('global_variable', 'on') }}"
+    value_template: "{{ is_state(global_variable, 'on') }}"
 
 actions:
   - action: persistent_notification.create
