@@ -1158,6 +1158,8 @@ actions:
               # Customisation of text
               title: !input title
               message: !input message
+              doorbell_title: !input doorbell_title
+              doorbell_message: !input doorbell_message
               subtitle: !input subtitle
               tap_action: !input tap_action
               button_1: !input button_1
@@ -1307,7 +1309,7 @@ actions:
                               - condition: template
                                 value_template: >-
                                   {{
-                                  wait.trigger.to_state.attributes.friendly_name == "doorbell-ding" }}
+                                  wait.trigger.id == "doorbell-ding" }}
                             then:
                               - alias: Send Notification
                                 sequence:
@@ -1319,7 +1321,7 @@ actions:
                                           - action: telegram_bot.send_photo
                                             data:
                                               target: "{{telegram_chat_id}}"
-                                              caption: "{{message}}"
+                                              caption: "{{doorbell_message}}"
                                               url: >-
                                                 {{attachment|replace( base_url,
                                                 telegram_base_url )}}
@@ -1330,8 +1332,8 @@ actions:
                                           - device_id: !input notify_device
                                             domain: mobile_app
                                             type: notify
-                                            title: "{{title}}"
-                                            message: "{{message}}"
+                                            title: "{{doorbell_title}}"
+                                            message: "{{doorbell_message}}"
                                             data:
                                               tag: "{{ id }}"
                                               group: "{{ group }}"
@@ -1383,8 +1385,8 @@ actions:
                                         sequence:
                                           - action: notify.{{ notify_group_target }}
                                             data:
-                                              title: "{{title}}"
-                                              message: "{{message}}"
+                                              title: "{{doorbell_title}}"
+                                              message: "{{doorbell_message}}"
                                               data:
                                                 tag: "{{ id }}"
                                                 group: "{{ group }}"
@@ -1443,8 +1445,8 @@ actions:
                                     default:
                                       - action: notify.{{ notify_group_target }}
                                         data:
-                                          title: "{{title}}"
-                                          message: Ding! {{message}}
+                                          title: "{{doorbell_title}}"
+                                          message: {{doorbell_message}}
                                           data:
                                             tag: "{{ id }}"
                                             group: "{{ group }}"
@@ -1516,7 +1518,7 @@ actions:
                                                       {{'alarm_stream' if critical else
                                                       channel}}
                                                     alert_once: "{{ alert_once }}"
-                                                    tts_text: "{{message}}"
+                                                    tts_text: "{{doorbell_message}}"
                                           default:
                                             - action: notify.{{ notify_group_target }}
                                               data:
@@ -1527,7 +1529,7 @@ actions:
                                                     {{'alarm_stream' if critical else
                                                     channel}}
                                                   alert_once: "{{ alert_once }}"
-                                                  tts_text: "{{message}}"
+                                                  tts_text: "{{doorbell_message}}"
                                         - action: input_text.set_value
                                           data:
                                             value: >
