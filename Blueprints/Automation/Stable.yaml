@@ -160,7 +160,7 @@ blueprint:
           description: The title of the doorbell notification.
           default: ""        
         doorbell_message:
-          name: Doorbell Notification Message
+          name: Doorbell Notification Message (Optional)
           description: |
             The message of the doorbell notification.
             You can use variables such as {{camera_name}} and {{label}}
