@@ -1316,6 +1316,8 @@ actions:
                                 value_template: >-
                                   {{
                                   wait.trigger.id == "doorbell-ding" }}
+                              - condition: template
+                                value_template: {{ camera == doorbell_camera }}
                             then:
                               - alias: Send Notification
                                 sequence:
