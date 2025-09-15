@@ -406,7 +406,7 @@ blueprint:
           name: Group
           description: The group name that will determine if notifications are grouped on your mobile device. If you want notifications grouped by camera, ensure it contains {{camera}}
           default: "{{camera}}-frigate-notification"
-        group-doorbell:
+        doorbell_group:
           name: Doorbell Group
           description: The group name that will determine if doorbell notifications are grouped on your mobile device. If you want notifications grouped by camera, ensure it contains {{camera}}
           default: "{{camera}}-frigate-doorbell-notification"
@@ -1183,7 +1183,7 @@ actions:
               custom_filter: !input custom_filter
               icon: !input icon
               group: !input group
-              group-doorbell: !input group-doorbell
+              doorbell_group: !input doorbell_group
               channel: !input channel
               attachment: !input attachment
               video: !input video
@@ -1341,7 +1341,7 @@ actions:
                                             message: "{{doorbell_message}}"
                                             data:
                                               tag: "{{ id }}"
-                                              group: "{{ group-doorbell }}"
+                                              group: "{{ doorbell_group }}"
                                               color: "{{color}}"
                                               subject: "{{subtitle}}"
                                               image: "{{attachment}}"
@@ -1394,7 +1394,7 @@ actions:
                                               message: "{{doorbell_message}}"
                                               data:
                                                 tag: "{{ id }}"
-                                                group: "{{ group-doorbell }}"
+                                                group: "{{ doorbell_group }}"
                                                 color: "{{color}}"
                                                 subject: "{{subtitle}}"
                                                 clickAction: "{{tap_action}}"
@@ -1454,7 +1454,7 @@ actions:
                                           message: "{{doorbell_message}}"
                                           data:
                                             tag: "{{ id }}"
-                                            group: "{{ group-doorbell }}"
+                                            group: "{{ doorbell_group }}"
                                             color: "{{color}}"
                                             subject: "{{subtitle}}"
                                             image: "{{attachment}}"
