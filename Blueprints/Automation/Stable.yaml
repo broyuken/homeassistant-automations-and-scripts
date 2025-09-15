@@ -1164,6 +1164,8 @@ actions:
               message: !input message
               doorbell_title: !input doorbell_title
               doorbell_message: !input doorbell_message
+              doorbell_camera: input doorbell_camera
+              doorbell_group: !input doorbell_group
               subtitle: !input subtitle
               tap_action: !input tap_action
               button_1: !input button_1
@@ -1183,7 +1185,6 @@ actions:
               custom_filter: !input custom_filter
               icon: !input icon
               group: !input group
-              doorbell_group: !input doorbell_group
               channel: !input channel
               attachment: !input attachment
               video: !input video
@@ -1879,9 +1880,10 @@ actions:
                     title: !input title
                     message: !input message
                     subtitle: !input subtitle
-                    doorbell_sensor: !input doorbell_sensor
-                    doorbell_camera: !input doorbell_camera
-
+                    doorbell_title: !input doorbell_title
+                    doorbell_message: !input doorbell_message
+                    doorbell_camera: input doorbell_camera
+                    doorbell_group: !input doorbell_group
                     critical_input: !input critical
                     critical: "{{ true if critical_input == 'true' else true if critical_input == True else false }}"
                     tts: !input tts
