@@ -1446,7 +1446,7 @@ actions:
                                       - action: notify.{{ notify_group_target }}
                                         data:
                                           title: "{{doorbell_title}}"
-                                          message: {{doorbell_message}} {{camera}} {{doorbell_camera}}
+                                          message: "{{doorbell_message}} {{camera}} {{doorbell_camera}}"
                                           data:
                                             tag: "{{ id }}"
                                             group: "{{ group }}"
