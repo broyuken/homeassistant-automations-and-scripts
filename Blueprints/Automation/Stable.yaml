@@ -156,17 +156,17 @@ blueprint:
                   value: "{{ label }}{{ ' was' if type == 'end' else '' }} detected on the {{ camera_name }} camera{{' in the ' if after_zones|length}}{{ after_zones | join(', ') | replace('_', ' ' ) | title }} at {{event['after']['start_time']|timestamp_custom('%H:%M')}}."
               custom_value: true
         doorbell_title:
-          name: Notification Title (Optional)
-          description: The title of the notification.
+          name: Doorbell Notification Title (Optional)
+          description: The title of the doorbell notification.
           default: ""        
         doorbell_message:
           name: Doorbell Notification Message
           description: |
             The message of the doorbell notification.
             You can use variables such as {{camera_name}} and {{label}}
-            e.g., A {{ label }} {{ ' was' if type == 'end' else '' }} detected on the {{ camera_name }} camera.
+            e.g., A {{ label }} {{ ' was' if type == 'end' else '' }} detected at the {{ camera_name }} camera.
 
-          default: "A {{ label }} {{ 'was detected' }} on the {{ camera_name }}."
+          default: "A {{ label }} {{ 'was detected' }} at the {{ camera_name }}."
           selector:
             select:
               options:
