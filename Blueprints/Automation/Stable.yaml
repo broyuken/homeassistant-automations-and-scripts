@@ -991,6 +991,7 @@ variables:
   input_camera_name: "{{input_camera|expand|map(attribute='attributes.camera_name', default='none')|list}}"
   camera: "{{trigger.payload_json['after']['camera'] if trigger.id == 'frigate-event'}}"
   camera_name: "{{ camera | replace('_', ' ') | title }}"
+  doorbell_camera: input doorbell_camera
   input_severity: !input review_severity
   severity: "{{trigger.payload_json['after']['severity'] if trigger.id == 'frigate-event'}}"
   type: "{{trigger.payload_json['type'] if trigger.id == 'frigate-event'}}"
