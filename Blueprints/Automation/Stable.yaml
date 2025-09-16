@@ -1166,6 +1166,8 @@ actions:
               doorbell_title: !input doorbell_title
               doorbell_message: !input doorbell_message
               doorbell_group: !input doorbell_group
+              doorbell_camera: !input doorbell_camera
+              camera: "{{trigger.payload_json['after']['camera'] if trigger.id == 'frigate-event'}}"
               subtitle: !input subtitle
               tap_action: !input tap_action
               button_1: !input button_1
