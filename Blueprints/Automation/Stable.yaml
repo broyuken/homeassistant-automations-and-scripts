@@ -1547,8 +1547,6 @@ actions:
                                               {{ newIds[:250] }}
                                           target:
                                             entity_id: "{{tts_helper}}"
-                            else:
-                              - stop: ""
                       - alias: Send Notification
                         sequence:
                           - choose:
