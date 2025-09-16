@@ -1654,7 +1654,7 @@ actions:
                                     # import the title and message again so any sublabel, object or zone changes are captured.
                                     title: !input title
                                     doorbell_message: !input doorbell_message
-                                    doorbell_subtitle: !input doorbell_subtitle
+                                    doorbell_title: !input doorbell_title
                 
                                     critical_input: !input critical
                                     critical: "{{ true if critical_input == 'true' else true if critical_input == True else false }}"
@@ -2359,7 +2359,7 @@ actions:
                                   # import the title and message again so any sublabel, object or zone changes are captured.
                                   title: !input title
                                   doorbell_message: !input doorbell_message
-                                  doorbell_subtitle: !input doorbell_subtitle
+                                  doorbell_title: !input doorbell_title
                         
                                   critical_input: !input critical
                                   critical: "{{ true if critical_input == 'true' else true if critical_input == True else false }}"
