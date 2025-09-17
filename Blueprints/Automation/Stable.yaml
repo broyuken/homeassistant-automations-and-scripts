@@ -2036,7 +2036,7 @@ actions:
                                     - action: telegram_bot.send_photo
                                       data:
                                         target: "{{telegram_chat_id}}"
-                                        caption: "{{message}}"
+                                        caption: "{{doorbell_message}}"
                                         url: >-
                                           {{attachment|replace( base_url,
                                           telegram_base_url )}}
@@ -2047,11 +2047,11 @@ actions:
                                     - device_id: !input notify_device
                                       domain: mobile_app
                                       type: notify
-                                      title: "{{title}}"
-                                      message: "{{message}}"
+                                      title: "{{doorbell_title}}"
+                                      message: "{{doorbell_message}}"
                                       data:
                                         tag: "{{ id }}"
-                                        group: "{{ group }}"
+                                        group: "{{ doorbell_group }}"
                                         color: "{{color}}"
                                         subject: "{{subtitle}}"
                                         image: "{{attachment}}"
@@ -2100,11 +2100,11 @@ actions:
                                   sequence:
                                     - action: notify.{{ notify_group_target }}
                                       data:
-                                        title: "{{title}}"
-                                        message: "{{message}}"
+                                        title: "{{doorbell_title}}"
+                                        message: "{{doorbell_message}}"
                                         data:
                                           tag: "{{ id }}"
-                                          group: "{{ group }}"
+                                          group: "{{ doorbell_group }}"
                                           color: "{{color}}"
                                           subject: "{{subtitle}}"
                                           clickAction: "{{tap_action}}"
@@ -2160,11 +2160,11 @@ actions:
                               default:
                                 - action: notify.{{ notify_group_target }}
                                   data:
-                                    title: "{{title}}"
-                                    message: "{{message}}"
+                                    title: "{{doorbell_title}}"
+                                    message: "{{doorbell_message}}"
                                     data:
                                       tag: "{{ id }}"
-                                      group: "{{ group }}"
+                                      group: "{{ doorbell_group }}"
                                       color: "{{color}}"
                                       subject: "{{subtitle}}"
                                       image: "{{attachment}}"
@@ -2233,7 +2233,7 @@ actions:
                                                 {{'alarm_stream' if critical else
                                                 channel}}
                                               alert_once: "{{ alert_once }}"
-                                              tts_text: "{{message}}"
+                                              tts_text: "{{doorbell_message}}"
                                     default:
                                       - action: notify.{{ notify_group_target }}
                                         data:
@@ -2244,7 +2244,7 @@ actions:
                                               {{'alarm_stream' if critical else
                                               channel}}
                                             alert_once: "{{ alert_once }}"
-                                            tts_text: "{{message}}"
+                                            tts_text: "{{doorbell_message}}"
                                   - action: input_text.set_value
                                     data:
                                       value: >
@@ -2358,8 +2358,7 @@ actions:
                                     {% endif %}
                                   # import the title and message again so any sublabel, object or zone changes are captured.
                                   title: !input title
-                                  doorbell_message: !input doorbell_message
-                                  doorbell_title: !input doorbell_title
+                                  message: !input message
                         
                                   critical_input: !input critical
                                   critical: "{{ true if critical_input == 'true' else true if critical_input == True else false }}"
@@ -2388,8 +2387,8 @@ actions:
                                               Info:
                                                 Sub Label: {{sub_labels}},
                                                 Image: "{{attachment if not redacted or not base_url else attachment |replace(base_url, 'REDACTED')}}"
-                                                Title: {{doorbell_title}}
-                                                Message: {{doorbell_message}}
+                                                Title: {{title}}
+                                                Message: {{message}}
                                                 iOS sound: {{'Critical' if critical else 'disabled by alert once' if alert_once else 'Silent' if silent_update else sound}},
                                                 Android Sound: {{'disabled by alert once' if alert_once else 'enabled'}},
                                                 iOS url: "{{(video if not redacted or not base_url else video |replace(base_url, 'REDACTED')) if video else attachment if not redacted or not base_url else attachment |replace(base_url, 'REDACTED')}}", 
@@ -2504,7 +2503,7 @@ actions:
                                                           - action: telegram_bot.send_video
                                                             data:
                                                               target: "{{telegram_chat_id}}"
-                                                              caption: "{{doorbell_message}}"
+                                                              caption: "{{message}}"
                                                               url: "{{ video | replace(base_url, telegram_base_url) }}"
                                                               inline_keyboard:
                                                                 - [
@@ -2527,7 +2526,7 @@ actions:
                                                       - action: telegram_bot.send_photo
                                                         data:
                                                           target: "{{telegram_chat_id}}"
-                                                          caption: "{{doorbell_message}}"
+                                                          caption: "{{message}}"
                                                           url: "{{attachment | replace(base_url,telegram_base_url)}}"
                                                           inline_keyboard:
                                                             - [
@@ -2540,11 +2539,11 @@ actions:
                                                   - device_id: !input notify_device
                                                     domain: mobile_app
                                                     type: notify
-                                                    title: "{{doorbell_title}}"
-                                                    message: "{{doorbell_message}}"
+                                                    title: "{{title}}"
+                                                    message: "{{message}}"
                                                     data:
                                                       tag: "{{ id }}"
-                                                      group: "{{ doorbell_group }}"
+                                                      group: "{{ group }}"
                                                       color: "{{color}}"
                                                       # Android Specific
                                                       subject: "{{subtitle}}"
@@ -2589,11 +2588,11 @@ actions:
                                                 sequence:
                                                   - action: "notify.{{ notify_group_target }}"
                                                     data:
-                                                      title: "{{doorbell_title}}"
-                                                      message: "{{doorbell_message}}"
+                                                      title: "{{title}}"
+                                                      message: "{{message}}"
                                                       data:
                                                         tag: "{{ id }}"
-                                                        group: "{{ doorbell_group }}"
+                                                        group: "{{ group }}"
                                                         color: "{{color}}"
                                                         # Android Specific
                                                         subject: "{{subtitle}}"
@@ -2645,11 +2644,11 @@ actions:
                                             default:
                                               - action: "notify.{{ notify_group_target }}"
                                                 data:
-                                                  title: "{{doorbell_title}}"
-                                                  message: "{{doorbell_message}}"
+                                                  title: "{{title}}"
+                                                  message: "{{message}}"
                                                   data:
                                                     tag: "{{ id }}"
-                                                    group: "{{ doorbell_group }}"
+                                                    group: "{{ group }}"
                                                     color: "{{color}}"
                                                     # Android Specific
                                                     subject: "{{subtitle}}"
@@ -2711,7 +2710,7 @@ actions:
                                                             tag: "{{ id }}{{'-loitering-tts' if loitering}}"
                                                             channel: "{{'alarm_stream' if critical else channel}}"
                                                             alert_once: "{{ alert_once }}"
-                                                            tts_text: "{{doorbell_message}}"
+                                                            tts_text: "{{message}}"
                         
                                                   default:
                                                     - action: "notify.{{ notify_group_target }}"
@@ -2721,7 +2720,7 @@ actions:
                                                           tag: "{{ id }}{{'-loitering-tts' if loitering}}"
                                                           channel: "{{'alarm_stream' if critical else channel}}"
                                                           alert_once: "{{ alert_once }}"
-                                                          tts_text: "{{doorbell_message}}"
+                                                          tts_text: "{{message}}"
                                                 - action: input_text.set_value
                                                   data:
                                                     value: |
