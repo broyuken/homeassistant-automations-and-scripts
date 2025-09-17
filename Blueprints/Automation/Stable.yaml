@@ -2036,7 +2036,7 @@ actions:
                                     - action: telegram_bot.send_photo
                                       data:
                                         target: "{{telegram_chat_id}}"
-                                        caption: "{{doorbell_message}}"
+                                        caption: "{{message}}"
                                         url: >-
                                           {{attachment|replace( base_url,
                                           telegram_base_url )}}
@@ -2047,11 +2047,11 @@ actions:
                                     - device_id: !input notify_device
                                       domain: mobile_app
                                       type: notify
-                                      title: "{{doorbell_title}}"
-                                      message: "{{doorbell_message}}"
+                                      title: "{{title}}"
+                                      message: "{{message}}"
                                       data:
                                         tag: "{{ id }}"
-                                        group: "{{ doorbell_group }}"
+                                        group: "{{ group }}"
                                         color: "{{color}}"
                                         subject: "{{subtitle}}"
                                         image: "{{attachment}}"
@@ -2100,11 +2100,11 @@ actions:
                                   sequence:
                                     - action: notify.{{ notify_group_target }}
                                       data:
-                                        title: "{{doorbell_title}}"
-                                        message: "{{doorbell_message}}"
+                                        title: "{{title}}"
+                                        message: "{{message}}"
                                         data:
                                           tag: "{{ id }}"
-                                          group: "{{ doorbell_group }}"
+                                          group: "{{ group }}"
                                           color: "{{color}}"
                                           subject: "{{subtitle}}"
                                           clickAction: "{{tap_action}}"
@@ -2160,11 +2160,11 @@ actions:
                               default:
                                 - action: notify.{{ notify_group_target }}
                                   data:
-                                    title: "{{doorbell_title}}"
-                                    message: "{{doorbell_message}}"
+                                    title: "{{title}}"
+                                    message: "{{message}}"
                                     data:
                                       tag: "{{ id }}"
-                                      group: "{{ doorbell_group }}"
+                                      group: "{{ group }}"
                                       color: "{{color}}"
                                       subject: "{{subtitle}}"
                                       image: "{{attachment}}"
@@ -2233,7 +2233,7 @@ actions:
                                                 {{'alarm_stream' if critical else
                                                 channel}}
                                               alert_once: "{{ alert_once }}"
-                                              tts_text: "{{doorbell_message}}"
+                                              tts_text: "{{message}}"
                                     default:
                                       - action: notify.{{ notify_group_target }}
                                         data:
@@ -2244,7 +2244,7 @@ actions:
                                               {{'alarm_stream' if critical else
                                               channel}}
                                             alert_once: "{{ alert_once }}"
-                                            tts_text: "{{doorbell_message}}"
+                                            tts_text: "{{message}}"
                                   - action: input_text.set_value
                                     data:
                                       value: >
