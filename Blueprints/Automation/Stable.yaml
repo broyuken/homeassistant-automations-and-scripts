@@ -991,7 +991,8 @@ variables:
   input_camera_name: "{{input_camera|expand|map(attribute='attributes.camera_name', default='none')|list}}"
   camera: "{{trigger.payload_json['after']['camera'] if trigger.id == 'frigate-event'}}"
   camera_name: "{{ camera | replace('_', ' ') | title }}"
-  doorbell_camera: !input doorbell_camera
+  input_doorbell_camera: !input doorbell_camera
+  doorbell_camera: "{{ input_doorbell_camera | replace('camera.', '') }}"
   input_severity: !input review_severity
   severity: "{{trigger.payload_json['after']['severity'] if trigger.id == 'frigate-event'}}"
   type: "{{trigger.payload_json['type'] if trigger.id == 'frigate-event'}}"
@@ -1318,8 +1319,8 @@ actions:
                                 value_template: >-
                                   {{
                                   wait.trigger.id == "doorbell-ding" }}
-                              #- condition: template
-                               # value_template: {{ camera == doorbell_camera }}
+                              - condition: template
+                                value_template: '{{ camera == doorbell_camera }}'
                             then:
                               - alias: Send Notification
                                 sequence:
