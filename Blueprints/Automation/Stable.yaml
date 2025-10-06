@@ -1309,7 +1309,7 @@ actions:
                               - trigger: mqtt
                                 topic: "{{mqtt_topic}}"
                                 payload: "on"
-                                value_template: {{ "on" if value_json["after"]["camera"] == doorbell_camera and value_json["type"] == "end" else "off"}}'
+                                value_template: '{{ "on" if value_json["after"]["camera"] == doorbell_camera and value_json["type"] == "end" else "off"}}'
                                 id: frigate-event-end
                               - trigger: template
                                 value_template: '{{ is_state(doorbell_sensor, ''on'') }}'
